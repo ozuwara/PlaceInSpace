@@ -101,7 +101,7 @@ int main(int argc, char** argv){
         bool exit = false;
 
         // Event handler
-        SDL_Event e;
+        SDL_Event e
 
         if(!loadMedia())
         {
@@ -109,13 +109,13 @@ int main(int argc, char** argv){
         }
         else
         {
-            while(!exit)
+            while(SDL_PollEvent !exit)
             {
                 while(SDL_PollEvent(&e) != 0)
                 {
-                    if(e.type == SDL_QUIT)
+                    if(e.type == SDL_Quit)
                     {
-                        exit = true;
+                        quit = true;
                     }
                 }
 

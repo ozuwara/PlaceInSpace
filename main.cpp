@@ -5,22 +5,35 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-int main(int argc, char** argv){
+// Starts up SDL and creates a window
+bool init();
 
-    printf("running...");
+// Loads media
+bool loadMedia();
 
-    // The window rendered to
-    SDL_Window* window = NULL;
+// Frees media and shuts down SDL
+void close();
+
+// The window rendered to
+SDL_Window* window = NULL;
+
+// The surface contained by the window
+SDL_Surface* screenSurface = NULL;
+
+// Image surface
+SDL_Surface* imgSurface = NULL;
+
+bool init(){
+
+    bool succes = true;
     
-    // The surface contained by the window
-    SDL_Surface* screenSurface = NULL;
-
-    // Initialize SDL
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
+    if(SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
         printf( "SDL could not initialise! SDL_error %s\n : ", SDL_GetError() );
+        succes = false;
     }
-    else{
-        // Create window
+    else
+    {
         window = SDL_CreateWindow(
                 "PlaceInSpace", 
                 SDL_WINDOWPOS_UNDEFINED, 
@@ -30,33 +43,77 @@ int main(int argc, char** argv){
                 SDL_WINDOW_SHOWN
                 );
 
-        if(window == NULL){
-            printf("window could not be created! Error: %s\n", SDL_GetError());
+        if (window == NULL){
+            printf("Window could not be created : Error %S", SDL_GetError());
+            succes = false;
         }
         else{
-            
-            // Get window surface
             screenSurface = SDL_GetWindowSurface(window);
-
-            // Fill the surface white
-            SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-
-            // Update the surface
-            SDL_UpdateWindowSurface(window);
-
-            // Wait 2 seconds 
-            // (for testing putposes, proper exit logic should be implemented instead of fixed wait)
-            SDL_Delay(2000);
         }
+
     }
 
-    // Cleanup and exit:
+    return succes;
+
+}
+
+bool loadMedia(){
+
+    // Initialise succes flag
+    bool succes = true;
+
+    imgSurface = SDL_LoadBMP("assets/test_img.bmp");
+
+    if(imgSurface == NULL)
+    {
+        printf("failed to load image");
+        succes = false;
+    }
+
+    return succes;
+
+}
+
+void close(){
+
+    // Deallocate surface
+    SDL_FreeSurface(imgSurface);
+    imgSurface = NULL;
 
     // Destroy window
     SDL_DestroyWindow(window);
+    window = NULL;
 
-    // Quit SDL subsystem
+    // quit SDL subsystems
     SDL_Quit();
+}
+
+int main(int argc, char** argv){
+
+    if(!init())
+    {
+        printf("failed to initialize\n");
+    }
+    else
+    {
+        if(!loadMedia())
+        {
+            printf("Failed to load media");
+        }
+        else
+        {
+        // Apply image
+        SDL_BlitSurface(imgSurface, NULL, screenSurface, NULL);
+
+        // Update the window surface
+        SDL_UpdateWindowSurface(window);
+
+        // wait 5 seconds
+        SDL_Delay(5000);
+        }
+    }
+
+    close();
 
     return 0;
 }

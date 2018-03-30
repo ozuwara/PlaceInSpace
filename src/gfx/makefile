@@ -1,4 +1,4 @@
-OBJS = main.cpp #src/gfx/mainFrame.cpp
+OBJS = gfx.cpp #src/gfx/mainFrame.cpp
 
 CC = g++
 
@@ -10,7 +10,7 @@ COMPILER_FLAGS = -w -Wl,-subsystem,windows
 
 LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2
 
-OBJS_NAME = main.exe
+OBJS_NAME = gfx.exe
 
 all : $(OBJS)
 	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJS_NAME)

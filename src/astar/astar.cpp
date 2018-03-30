@@ -71,9 +71,9 @@ std::vector<Node> Astar::find_path(int x, int y, const std::vector<std::vector<i
             {
             for(int j = 0; j < nodes[i].neighbours.size(); j++)
                 {
-                if(nodes[i].estimatedCost > nodes[i].edge + nodes[i].neighbours[j]->estimatedCost )
+                if(nodes[i].estimatedCost > weight(nodes[i]) + nodes[i].neighbours[j]->estimatedCost )
                     {
-                    nodes[i].estimatedCost = nodes[i].edge + nodes[i].neighbours[j]->estimatedCost;
+                    nodes[i].estimatedCost = weight(nodes[i]) + nodes[i].neighbours[j]->estimatedCost;
                     nodes[i].connectionX = nodes[i].neighbours[j]->x;
                     nodes[i].connectionY = nodes[i].neighbours[j]->y;
                     changesWereMade = true;

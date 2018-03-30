@@ -74,9 +74,20 @@ class Astar
 
 
 protected:
+    /*
+     * Bellman-Ford(source, vertices/edge):¨
+     * Initalize all elements to infinity = init(map)
+     * Set source to zero
+     * relax edges until no changes
+     * check for negative-weigth cycles /* not implemented
+     */
     std::vector<Node> find_path(int x, int y, const std::vector<std::vector<int> > map);
 
 public:
+    /*
+     * Main method in Astar, returns a list of nodes, which contains initial node, end node, 
+     * and alle nodes in between which results in the fastest path between initial and end.
+     */
     std::vector<Node> shortest_path(int fromX, int fromY, int toX, int toY, const std::vector<std::vector<int> > map, 
         bool debug=false);
 

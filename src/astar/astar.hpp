@@ -32,13 +32,13 @@ public:
  * Astar astar;
  * int fromX=0, fromY=0, toX=2, toY=2;
  * std::vector<std::vector<int> > map = astar.generateMap(3,3);
- * std::vector<Node> path = astar.shortest_path(fromX, fromY, toX, toY  map);
+ * std::vector<Node> path = astar.shortest_path(fromX, fromY, toX, toY,  map);
  *
  * path[0] contains start position = (fromX, fromY)
  * path[n] contains end position = (toX, toY);
  * In between 0 .. n, you'll find which nodes you should step through, to get from A to B fastest. 
  *
- * shortest path is found using the algorithm of,
+ * shortest path is found using power of the,
  * Bellman-Ford algorithm: https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
  */
 class Astar
@@ -52,7 +52,7 @@ class Astar
 
     /* Initialize all nodes within the map
      * find neighbours foreach node,
-     * Where a neighbour is a node withn the same square
+     * Where a neighbour is a node within the same square
      * fx N = neighbour, n = node, then
      * N N N
      * N n N
@@ -60,10 +60,10 @@ class Astar
      */
     void init(const std::vector<std::vector<int> > &map);
 
-    /* This method is used to calulate the cost,
+    /* This method is used to calculate the cost,
      * of moving to Node n.
      */
-    int weigth(Node n)
+    int weight(Node n)
         {
         return n.edge;
         };
@@ -80,7 +80,7 @@ public:
     std::vector<Node> shortest_path(int fromX, int fromY, int toX, int toY, const std::vector<std::vector<int> > map, 
         bool debug=false);
 
-    /* Generate 2-dimensionel vector it random values between 1 and 6 */
+    /* Generate 2-dimensional vector it random values between 1 and 6 */
     std::vector<std::vector<int> > generateMap(int cols, int rows);
     };
 #endif

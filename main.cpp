@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "src/gfx/mainFrame.h"
+#include <SDL.h>
 
 int main(){
     printf("123");

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "mainFrame.h"
-#include <SDL.h>
+//#include <SDL.h>
 
 int sdlEntry(){
     printf("sdl layer...");
